@@ -5,6 +5,7 @@ const {
   getDashboardStats,
   listUsers,
   listStores,
+  getOwners,
 } = require("../controller/admin.controller");
 const authMiddlewares = require("../middlewares/authMiddlewares");
 const roleMiddlewares = require("../middlewares/roleMiddlewares");
@@ -50,5 +51,11 @@ adminRouter.put(
   authMiddlewares,
   roleMiddlewares("store_owner"),
   updatePassword
+);
+adminRouter.get(
+  "/owners",
+  authMiddlewares,
+  roleMiddlewares("admin"),
+  getOwners
 );
 module.exports = adminRouter;

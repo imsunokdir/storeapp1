@@ -52,3 +52,9 @@ export const getStores = async ({
     withCredentials: true,
   });
 };
+
+export const getStoreOwner = async (q) =>
+  await api.get("/admin/owners", {
+    params: { q },
+    withCredentials: true,
+  });

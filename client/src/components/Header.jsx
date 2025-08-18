@@ -31,7 +31,7 @@ const Header = () => {
 
       if (response.status === 200) {
         setUser(null);
-
+        navigate("/login");
         // Show success message
         messageApi.open({
           key,
@@ -40,8 +40,6 @@ const Header = () => {
           duration: 2,
         });
         dispatch(storeActions.resetStores());
-
-        navigate("/login");
       }
     } catch (error) {
       console.log("Logout error:", error);

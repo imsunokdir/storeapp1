@@ -399,10 +399,45 @@ const listStores = async (req, res) => {
   }
 };
 
+const getOwners = async (req, res) => {
+  try {
+    const { q } = req.query;
+    console.log("Search query:", q);
+
+    // Base condition
+    const whereCondition = {
+      role: "store_owner",
+    };
+
+    if (q && q.trim() !== "") {
+      const search = `%${q.trim()}%`;
+
+      // Search by name OR email
+      whereCondition[Op.or] = [
+        { name: { [Op.iLike]: search } },
+        { email: { [Op.iLike]: search } },
+      ];
+    }
+
+    const owners = await User.findAll({
+      where: whereCondition,
+      attributes: ["id", "name", "email"],
+      order: [["name", "ASC"]],
+    });
+
+    console.log(`Found ${owners.length} owners for query: "${q}"`);
+    res.json(owners);
+  } catch (error) {
+    console.error("Error fetching owners:", error);
+    res.status(500).json({ message: "Failed to fetch owners" });
+  }
+};
+
 module.exports = {
   createUser,
   createStore,
   getDashboardStats,
   listUsers,
   listStores,
+  getOwners,
 };
