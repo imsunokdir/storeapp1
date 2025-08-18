@@ -2,7 +2,7 @@ import React from "react";
 
 const StoreCardSkeleton = () => {
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 animate-pulse">
+    <div className="bg-white rounded-lg shadow-md p-10 animate-pulse">
       {/* Header */}
       <div className="flex justify-between items-start mb-4">
         <div className="h-6 bg-gray-200 rounded w-2/3"></div>

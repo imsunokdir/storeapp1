@@ -108,7 +108,7 @@ const ViewStores = () => {
         </div>
 
         {/* Table */}
-        <div className="flex flex-col justify-between flex-1 min-h-[300px]">
+        <div className="flex flex-col justify-between flex-1 min-h-[300px] max-h-[400px]">
           <table className="w-full bg-white rounded shadow table-fixed">
             <thead className="h-12">
               <tr className="h-12">

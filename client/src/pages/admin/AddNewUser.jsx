@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { createNewUser } from "../../services/admin";
 import GoBack from "../../components/GoBack";
+import LoadingButton from "../../components/loading/LoadingButton";
 
 const AddNewUser = () => {
   const [form, setForm] = useState({
@@ -12,6 +13,8 @@ const AddNewUser = () => {
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false); // ✅ New loading state
+
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -22,6 +25,7 @@ const AddNewUser = () => {
     e.preventDefault();
     setError("");
     setSuccess("");
+    setLoading(true); // start loading
 
     try {
       const res = await createNewUser(form);
@@ -37,14 +41,17 @@ const AddNewUser = () => {
       }
     } catch (error) {
       setError("Failed to add user");
+    } finally {
+      setLoading(false); // stop loading
     }
   };
+
   return (
     <div>
       <div className="mt-2 ml-2">
-        {" "}
         <GoBack />
       </div>
+
       <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded shadow">
         <h2 className="text-2xl font-bold mb-6 text-center">Add New User</h2>
 
@@ -107,12 +114,16 @@ const AddNewUser = () => {
             <option value="admin">Admin</option>
           </select>
 
-          <button
+          {/* ✅ Replace button with LoadingButton */}
+          <LoadingButton
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition"
-          >
-            Add User
-          </button>
+            text="Add User"
+            loadingText="Adding..."
+            loading={loading}
+            fullWidth
+            color="primary"
+            variant="contained"
+          />
         </form>
       </div>
     </div>

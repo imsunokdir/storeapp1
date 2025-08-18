@@ -8,6 +8,7 @@ import { fetchStoresThunk } from "../../redux/thunk/storeThunks";
 import { storeActions } from "../../redux/store";
 import RenderSkeletonCards from "../../components/RenderSkeletonCards";
 import { useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 const sortOptions = [
   { value: "name", label: "Name" },
@@ -262,12 +263,21 @@ const ViewStoresUser2 = () => {
             {sortedStores.length > 0 ? (
               <>
                 {sortedStores.map((store) => (
-                  <StoreCard
-                    key={store.id}
-                    store={store}
-                    userRating={userRatings[store.id]}
-                    onRatingChange={handleRating}
-                  />
+                  <AnimatePresence key={store.id}>
+                    <motion.div
+                      key={store.id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2, ease: "easeInOut" }}
+                    >
+                      <StoreCard
+                        store={store}
+                        userRating={userRatings[store.id]}
+                        onRatingChange={handleRating}
+                      />
+                    </motion.div>
+                  </AnimatePresence>
                 ))}
                 {loading && <RenderSkeletonCards count={2} />}
               </>

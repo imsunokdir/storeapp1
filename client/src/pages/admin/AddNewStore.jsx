@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createNewStore, getStoreOwner } from "../../services/admin";
 import GoBack from "../../components/GoBack";
+import LoadingButton from "../../components/loading/LoadingButton"; // ✅ import
 
 const AddNewStore = () => {
   const [form, setForm] = useState({
@@ -14,6 +15,7 @@ const AddNewStore = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loadingOwners, setLoadingOwners] = useState(false);
+  const [loading, setLoading] = useState(false); // ✅ loading for submit
 
   // fetch owners when query changes
   useEffect(() => {
@@ -45,17 +47,21 @@ const AddNewStore = () => {
     e.preventDefault();
     setError("");
     setSuccess("");
+    setLoading(true); // start loading
 
     if (form.name.length < 20 || form.name.length > 60) {
       setError("Store name must be between 20 and 60 characters");
+      setLoading(false);
       return;
     }
     if (form.address.length > 400) {
       setError("Address cannot exceed 400 characters");
+      setLoading(false);
       return;
     }
     if (!form.owner_id) {
       setError("Please select a store owner");
+      setLoading(false);
       return;
     }
 
@@ -72,6 +78,8 @@ const AddNewStore = () => {
     } catch (err) {
       console.log(err);
       setError("Failed to add store");
+    } finally {
+      setLoading(false); // stop loading
     }
   };
 
@@ -127,7 +135,7 @@ const AddNewStore = () => {
               className="mb-4 w-full p-3 border border-gray-300 rounded"
             />
 
-            {/* 🔹 Owner search field with label */}
+            {/* 🔹 Owner search field */}
             <div className="relative mb-6">
               <label className="block mb-2 font-medium text-gray-700">
                 Select Store Owner
@@ -157,12 +165,16 @@ const AddNewStore = () => {
               )}
             </div>
 
-            <button
+            {/* ✅ Replace button with LoadingButton */}
+            <LoadingButton
               type="submit"
-              className="w-full bg-indigo-600 text-white py-3 rounded hover:bg-indigo-700 transition"
-            >
-              Add Store
-            </button>
+              text="Add Store"
+              loadingText="Adding..."
+              loading={loading}
+              fullWidth
+              color="primary"
+              variant="contained"
+            />
           </form>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const GoBack = () => {
+const GoBack = ({ label = "Go Back" }) => {
   const navigate = useNavigate();
   return (
     <button
@@ -21,7 +21,7 @@ const GoBack = () => {
           d="M15 19l-7-7 7-7"
         />
       </svg>
-      Back to Stores
+      {label}
     </button>
   );
 };
