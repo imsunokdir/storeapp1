@@ -16,6 +16,7 @@ module.exports = session({
   store: sessionStore,
   resave: false,
   saveUninitialized: false,
+  proxy: true,
   cookie: {
     secure: process.env.NODE_ENV === "production", // true in prod (HTTPS), false in dev (HTTP)
     maxAge: 1000 * 60 * 60 * 24, // 1 day
