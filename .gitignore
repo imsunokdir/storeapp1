@@ -1,0 +1,12 @@
+# Node server
+server/node_modules/
+server/.env
+
+# React client
+client/node_modules/
+client/build/
+client/.env
+
+# Optional system files
+.DS_Store
+Thumbs.db
