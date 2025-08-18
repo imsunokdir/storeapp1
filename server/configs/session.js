@@ -19,5 +19,6 @@ module.exports = session({
     secure: isProduction, // true in prod (HTTPS), false in dev (HTTP)
     maxAge: 1000 * 60 * 60 * 24, // 1 day
     sameSite: isProduction ? "none" : "lax", // 'none' with secure=true for cross-site cookies in prod, else lax in dev
+    httpOnly: true,
   },
 });
