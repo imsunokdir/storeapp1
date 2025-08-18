@@ -17,9 +17,10 @@ module.exports = session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: process.env.NODE_ENV === "production", // true in prod (HTTPS), false in dev (HTTP)
-    maxAge: 1000 * 60 * 60 * 24, // 1 day
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // 'none' with secure=true for cross-site cookies in prod, else lax in dev
+    secure: true, // MUST be true for cross-origin in production
+    maxAge: 1000 * 60 * 60 * 24,
+    sameSite: "none", // MUST be 'none' for cross-origin
     httpOnly: true,
+    // Don't set domain - let it default
   },
 });

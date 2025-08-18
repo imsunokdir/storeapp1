@@ -21,6 +21,11 @@ const login = async (req, res) => {
     role: user.role,
     name: user.name,
   };
+  console.log("=== DEBUG INFO ===");
+  console.log("Session ID:", req.sessionID);
+  console.log("Session data:", req.session);
+  console.log("Request origin:", req.get("origin"));
+  console.log("Request headers:", req.headers);
   res.json({ message: "Login successful", user: req.session.user });
 };
 
