@@ -5,10 +5,6 @@ import { AuthContext } from "../context/AuthContext";
 const HomeRedirect = () => {
   const { user, loading } = useContext(AuthContext);
 
-  //   if (loading) {
-  //     return <div>Loading...</div>; // or spinner
-  //   }
-
   if (!user) {
     return <Navigate to="/login" replace />;
   }
