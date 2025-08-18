@@ -17,9 +17,9 @@ module.exports = session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: isProduction, // true in prod (HTTPS), false in dev (HTTP)
+    secure: process.env.NODE_ENV === "production", // true in prod (HTTPS), false in dev (HTTP)
     maxAge: 1000 * 60 * 60 * 24, // 1 day
-    sameSite: isProduction ? "none" : "lax", // 'none' with secure=true for cross-site cookies in prod, else lax in dev
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // 'none' with secure=true for cross-site cookies in prod, else lax in dev
     httpOnly: true,
   },
 });
