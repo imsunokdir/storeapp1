@@ -71,6 +71,7 @@ const app = express();
 
 // ---- Middleware ----
 const allowedOrigins = process.env.CORS_ORIGIN.split(",");
+console.log("allowrd origin:", allowedOrigins);
 app.use(
   cors({
     origin: allowedOrigins,
@@ -114,7 +115,8 @@ app.use("/store", storeRouter);
     // });
 
     // Start server only after DB is ready
-    app.listen(process.env.PORT || 3000, () => {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, "0.0.0.0", () => {
       console.log(`🚀 Server running on port ${process.env.PORT || 3000}`);
     });
   } catch (error) {
