@@ -340,7 +340,7 @@ const listStores = async (req, res) => {
     // Get all stores with ratings first (without pagination)
     const allStores = await Store.findAll({
       where: whereClause,
-      order: [[sortBy, order]],
+      order: [[Sequelize.fn("LOWER", Sequelize.col(sortBy)), order]],
       attributes: ["id", "name", "email", "address"],
       include: [
         {

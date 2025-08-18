@@ -135,9 +135,16 @@ const ViewStoresUser2 = () => {
   // Fetch on search/sort changes, or sort locally if no more data
   useEffect(() => {
     if (!isAuth || !hasMore) return;
+    console.log("top top top");
     dispatch(storeActions.resetStores());
     fetchStores();
-  }, [sortField, sortOrder, search, isAuth]);
+  }, [sortField, sortOrder, isAuth]);
+
+  // useEffect(() => {
+  //   if (isAuth && stores.length > 0) {
+  //     fetchStores();
+  //   }
+  // }, [isAuth]);
 
   useEffect(() => {
     if (fetchTrigger && (search || search === "")) {

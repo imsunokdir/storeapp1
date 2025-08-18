@@ -69,13 +69,11 @@ const StoreCard = ({ store, userRating }) => {
           </span>
           <div className="flex items-center">
             <span className="text-lg font-semibold text-yellow-600">
-              {store.averageRating
-                ? Number(store.averageRating).toFixed(1)
-                : "N/A"}
+              {Number(store.averageRating).toFixed(2)}
             </span>
-            {store.averageRating && (
+            {store.averageRating != 0 ? (
               <span className="ml-1 text-yellow-500">⭐</span>
-            )}
+            ) : null}
           </div>
         </div>
 
