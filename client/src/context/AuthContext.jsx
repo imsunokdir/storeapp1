@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
 
   const checkSession = async () => {
     try {
+      setLoading(true);
       const res = await isLoggedIn();
       if (res.status === 200) {
         setUser(res.data);
