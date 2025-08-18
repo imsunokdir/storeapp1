@@ -70,9 +70,10 @@ const storeRouter = require("./routes/store.route");
 const app = express();
 
 // ---- Middleware ----
+const allowedOrigins = process.env.CORS_ORIGIN.split(",");
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: allowedOrigins,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Accept"],
