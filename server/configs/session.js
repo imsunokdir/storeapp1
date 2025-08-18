@@ -1,6 +1,7 @@
 const session = require("express-session");
 const sequelize = require("./db");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
+require("dotenv").config();
 
 const sessionStore = new SequelizeStore({
   db: sequelize,
@@ -19,6 +20,6 @@ module.exports = session({
     secure: isProduction, // true in prod (HTTPS), false in dev (HTTP)
     maxAge: 1000 * 60 * 60 * 24, // 1 day
     sameSite: isProduction ? "none" : "lax", // 'none' with secure=true for cross-site cookies in prod, else lax in dev
-    // httpOnly: true,
+    httpOnly: true,
   },
 });
