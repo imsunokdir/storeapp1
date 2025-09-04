@@ -209,8 +209,8 @@ const ViewStoresUser2 = () => {
                 </div>
               )}
             </div>
-
-            <div className="flex flex-col sm:flex-row sm:space-x-3 space-y-3 sm:space-y-0">
+            {/* sory by and order of stores by asc or desc features */}
+            {/* <div className="flex flex-col sm:flex-row sm:space-x-3 space-y-3 sm:space-y-0">
               <select
                 value={sortField}
                 onChange={(e) => {
@@ -239,7 +239,7 @@ const ViewStoresUser2 = () => {
               >
                 {sortOrder === "asc" ? "↑ Ascending" : "↓ Descending"}
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
 
