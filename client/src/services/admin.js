@@ -33,7 +33,6 @@ export const getUsers = async ({
   });
 };
 
-// In your services/admin.js file
 export const getStores = async ({
   search = "",
   sortBy = "name",

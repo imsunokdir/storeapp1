@@ -337,7 +337,7 @@ const listStores = async (req, res) => {
   }
 
   try {
-    // Get all stores with ratings first (without pagination)
+    // Get all stores with all ratings
     const allStores = await Store.findAll({
       where: whereClause,
       order: [[Sequelize.fn("LOWER", Sequelize.col(sortBy)), order]],
@@ -345,16 +345,35 @@ const listStores = async (req, res) => {
       include: [
         {
           model: Rating,
-          as: "ratings",
-          attributes: ["rating"], // Include the rating to calculate average
-          required: false, // LEFT JOIN to include stores without ratings
+          as: "ratings", // Use the defined association alias
+          attributes: ["rating"],
+          required: false,
         },
       ],
       raw: false,
       nest: true,
     });
 
-    // Calculate average rating manually for each store
+    // Get current user's ratings for all stores
+    const storeIds = allStores.map((store) => store.id);
+    const userRatings = await Rating.findAll({
+      where: {
+        store_id: { [Op.in]: storeIds },
+        user_id: user.id,
+      },
+      attributes: ["store_id", "rating"],
+      raw: true,
+    });
+
+    // Create a map for quick lookup of user ratings
+    const userRatingMap = userRatings.reduce((map, rating) => {
+      map[rating.store_id] = rating.rating;
+      return map;
+    }, {});
+
+    console.log("all stores:", allStores);
+
+    // Calculate average rating and include user's rating for each store
     const storesWithAverage = allStores.map((store) => {
       const storeData = store.toJSON ? store.toJSON() : store;
       const ratings = storeData.ratings || [];
@@ -370,9 +389,12 @@ const listStores = async (req, res) => {
         name: storeData.name,
         email: storeData.email,
         address: storeData.address,
-        averageRating: parseFloat(averageRating.toFixed(2)), // Round to 2 decimal places
+        averageRating: parseFloat(averageRating.toFixed(2)),
+        userRating: userRatingMap[storeData.id] || null, // Current user's rating
       };
     });
+
+    console.log("storesWithAverage", storesWithAverage);
 
     // Apply pagination manually
     const totalCount = storesWithAverage.length;

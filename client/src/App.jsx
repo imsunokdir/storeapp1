@@ -29,6 +29,8 @@ const App = () => {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/auth/update-password" element={<UpdatePassword />} />
         <Route path="/" element={<HomeRedirect />} />
+
+        {/* admin routes */}
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/add-user" element={<AddNewUser />} />

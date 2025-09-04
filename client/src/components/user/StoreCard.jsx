@@ -77,16 +77,28 @@ const StoreCard = ({ store, userRating }) => {
           </div>
         </div>
 
-        {userRating !== undefined && userRating !== null && (
+        {/* User Rating Section */}
+        {store.userRating !== undefined && store.userRating !== null ? (
           <div className="text-right">
             <span className="text-gray-600 text-sm mb-1 block">
               Your Rating:
             </span>
             <div className="flex items-center justify-end">
               <span className="text-lg font-semibold text-blue-600">
-                {Number(userRating).toFixed(1)}
+                {Number(store.userRating).toFixed(1)}
               </span>
               <span className="ml-1 text-blue-500">⭐</span>
+            </div>
+          </div>
+        ) : (
+          <div className="text-right">
+            <span className="text-gray-600 text-sm mb-1 block">
+              Your Rating:
+            </span>
+            <div className="flex items-center justify-end">
+              <span className="text-sm text-gray-400 italic">
+                Not rated yet
+              </span>
             </div>
           </div>
         )}
