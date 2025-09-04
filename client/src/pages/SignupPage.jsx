@@ -92,6 +92,7 @@ const SignupPage = () => {
           onChange={handleChange}
           required
           className="w-full p-3 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          autoComplete="off"
         />
         <input
           type="text"
@@ -112,6 +113,7 @@ const SignupPage = () => {
           required
           minLength={8}
           maxLength={16}
+          autoComplete="off"
           className="w-full p-3 mb-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <ul className="mb-6 space-y-1 text-sm">
