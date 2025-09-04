@@ -49,6 +49,8 @@ const LoginPage = () => {
       }
     } finally {
       setIsLoggingIn(false);
+      setEmail("");
+      setPassword("");
     }
   };
 
