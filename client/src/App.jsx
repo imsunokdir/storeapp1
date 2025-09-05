@@ -16,6 +16,8 @@ import HomeRedirect from "./routes/HomeRedirect";
 import UpdatePassword from "./pages/UpdatePassword";
 import StoreDetails from "./components/user/StoreDetails";
 import ViewStoresUser2 from "./pages/user/ViewStores2";
+import ViewStoresUser3 from "./pages/user/ViewStoresUser3";
+// import ViewStores3 from "./pages/user/viewStores3";
 
 const App = () => {
   const { loading } = useContext(AuthContext);
@@ -42,7 +44,8 @@ const App = () => {
         {/* Normal user protected routes */}
         <Route element={<ProtectedRoute allowedRoles={["normal_user"]} />}>
           {/* <Route path="/user/dashboard" element={<ViewStoresUser />} /> */}
-          <Route path="/user/dashboard" element={<ViewStoresUser2 />} />
+          {/* <Route path="/user/dashboard" element={<ViewStoresUser2 />} /> */}
+          <Route path="/user/dashboard" element={<ViewStoresUser3 />} />
           <Route path="/user/store/:id" element={<StoreDetails />} />
         </Route>
 
