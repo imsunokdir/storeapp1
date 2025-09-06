@@ -6,7 +6,7 @@ You can log in as the admin using the following credentials:
 - **Email:** admin@storeapp.com
 - **Password:** admin123
 
-  # **Tech Stack**
+  # Tech Stack
 - **Backend:** Node.js, Express.js  
 - **Database:** MySQL  
 - **Frontend:** React.js  
