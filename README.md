@@ -53,7 +53,5 @@ This project is a **Node.js + Express backend** application for managing users, 
    - Descriptive error messages for better debugging.
    - Try/catch blocks in all controllers for server errors.
 
----
 
-## 📂 Project Structure
 
