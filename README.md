@@ -1,5 +1,7 @@
 # Store Management Application
 
+**Live Demo:** [Click here](https://storeapp1-iota.vercel.app/)
+
 ## Admin Credentials
 You can log in as the admin using the following credentials:
 
