@@ -1,8 +1,9 @@
 const express = require("express");
+const cors = require("cors");
 const { sequelize, User } = require("./tables");
 require("dotenv").config();
 const sessionMiddleware = require("./configs/session");
-const cors = require("cors");
+
 const bcrypt = require("bcryptjs");
 
 const authRoutes = require("./routes/auth.route");
@@ -14,11 +15,21 @@ const app = express();
 
 // ---- Middleware ----
 const allowedOrigins = process.env.CORS_ORIGIN.split(",");
-console.log("allowrd origin:", allowedOrigins);
+console.log("allowed origin:", allowedOrigins);
 app.use(
   cors({
-    origin: allowedOrigins,
-    credentials: true,
+    origin: function (origin, callback) {
+      // If request has no origin (like Postman), allow it
+      if (!origin) return callback(null, true);
+
+      // Check if origin is allowed
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS not allowed"));
+      }
+    },
+    credentials: true, // allow cookies/sessions
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Accept"],
   })
