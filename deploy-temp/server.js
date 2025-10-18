@@ -14,23 +14,22 @@ const storeRouter = require("./routes/store.route");
 const app = express();
 
 // ---- Middleware ----
-const allowedOrigins = process.env.CORS_ORIGIN.split(",").map((o) =>
-  o.trim().replace(/\/$/, "")
-); // removes trailing slash
-
+const allowedOrigins = process.env.CORS_ORIGIN.split(",");
+console.log("allowed origin:", allowedOrigins);
 app.use(
   cors({
     origin: function (origin, callback) {
+      // If request has no origin (like Postman), allow it
       if (!origin) return callback(null, true);
-      const normalizedOrigin = origin.replace(/\/$/, "");
-      if (allowedOrigins.includes(normalizedOrigin)) {
+
+      // Check if origin is allowed
+      if (allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        console.error("❌ CORS blocked origin:", origin);
         callback(new Error("CORS not allowed"));
       }
     },
-    credentials: true,
+    credentials: true, // allow cookies/sessions
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Accept"],
   })
