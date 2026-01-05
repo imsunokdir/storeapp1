@@ -10,6 +10,7 @@ const authRoutes = require("./routes/auth.route");
 const adminRouter = require("./routes/admin.route");
 const userRouter = require("./routes/user.route");
 const storeRouter = require("./routes/store.route");
+const healthRouter = require("./routes/health.route");
 
 const app = express();
 
@@ -45,7 +46,7 @@ app.use("/auth", authRoutes);
 app.use("/admin", adminRouter);
 app.use("/user", userRouter);
 app.use("/store", storeRouter);
-
+app.use("/health", healthRouter);
 // ---- DB Connection Test ----
 (async () => {
   try {
